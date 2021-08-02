@@ -5,7 +5,7 @@ const Discord = require("discord.js");
 const fs = require("fs");
 
 /**
- * Builds a help RichEmbed based on the command information.
+ * Builds a help MessageEmbed based on the command information.
  * @param {Client} client The Discord Bot.
  * @param {Object} message The message object.
  * @param {String} command The command name.
@@ -27,7 +27,7 @@ module.exports.helpMenuBuilder = (client, message, command) => {
     const examples = command.help.example.join("\n") || "-";
 
     const helpEmbed = new Discord.MessageEmbed()
-        .setAuthor(command.help.cmdName, client.user.avatarURL)
+        .setAuthor(command.help.cmdName, client.user.avatarURL())
         .setColor("RANDOM")
         .setDescription(command.help.description)
         .setFooter("<> is required, [] is optional.")
@@ -50,7 +50,7 @@ module.exports.helpMenuBuilder = (client, message, command) => {
  */
 module.exports.msgAlert = (message, title, desc) => {
     const embed = new Discord.MessageEmbed()
-        .setAuthor(message.author.tag, message.author.avatarURL)
+        .setAuthor(message.author.tag, message.author.avatarURL())
         .setTitle(title)
         .setTimestamp()
         .setDescription(desc)
@@ -62,7 +62,7 @@ module.exports.msgAlert = (message, title, desc) => {
 // Use this to store functions you will be using across a bunch of commands.
 // Will be easier for you to manage.
 /**
- * Builds a help RichEmbed based on the command information.
+ * Builds a help MessageEmbed based on the command information.
  * @param {Client} client The Discord Bot.
  * @param {Object} message The message object.
  * @param {String} command The command name.
@@ -84,7 +84,7 @@ module.exports.helpMenuBuilder = (client, message, command) => {
     const examples = command.help.example.join("\n") || "-";
 
     const helpEmbed = new Discord.MessageEmbed()
-        .setAuthor(command.help.cmdName, client.user.avatarURL)
+        .setAuthor(command.help.cmdName, client.user.avatarURL())
         .setColor("RANDOM")
         .setDescription(command.help.description)
         .setFooter("<> Indicate Required. [] Indicate Optional.")
@@ -107,7 +107,7 @@ module.exports.helpMenuBuilder = (client, message, command) => {
  */
 module.exports.msgAlert = (message, title, desc) => {
     const embed = new Discord.MessageEmbed()
-        .setAuthor(message.author.tag, message.author.avatarURL)
+        .setAuthor(message.author.tag, message.author.avatarURL())
         .setTitle(title)
         .setTimestamp()
         .setDescription(desc)

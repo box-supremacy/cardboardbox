@@ -32,7 +32,7 @@ module.exports.run = async (client, config, message, args, functions) => {
             color: 0xffd700,
             author: {
                 name: message.author.tag,
-                icon_url:  message.author.avatarURL
+                icon_url:  message.author.avatarURL()
             },
             title: 'Bot Commands List',
             description: `Use \`${config.prefix}help <Command Name>\` to learn how to use it.`,

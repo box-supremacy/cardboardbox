@@ -11,7 +11,7 @@ module.exports.run = async (client, config, msg, args, functions) => {
 
         switch(response) {
             case "yes":
-                await message.edit(`**Restart confirmed by ${msg.author}.** Restarting......`);
+                await message.edit(`**Restart confirmed by ${msg.author}.** Restarting...`);
 
                 client.user.setStatus("dnd");
 
