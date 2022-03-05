@@ -20,7 +20,7 @@ for (let module of modules) {
 
     let commandFiles = fs.readdirSync(path.resolve(`./commands/${module}`)).
     filter(file => !fs.statSync(path.resolve('./commands/', module, file)).isDirectory()).
-    filter(file => file.endsWith('.ts'));
+    filter(file => file.endsWith('.js'));
 
     commandFiles.forEach((f, i) => {
         let props = require(`./commands/${module}/${f}`);

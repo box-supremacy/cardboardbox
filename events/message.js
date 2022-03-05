@@ -3,7 +3,7 @@ const config = require("../config/config.json");
 const {
     msgAlert,
     helpMenuBuilder
-} = require("../utility/functions.ts")
+} = require("../utility/functions.js")
 
 module.exports.run = async (client, msg) => {
     if (msg.author.bot) return;
@@ -53,7 +53,7 @@ module.exports.run = async (client, msg) => {
             return msg.channel.send(helpMenuBuilder(client, msg, commandfile));
         }
 
-        const functions = require("../utility/functions.ts");
+        const functions = require("../utility/functions.js");
         return execCMD.run(client, config, msg, args, functions);
     }
 }
