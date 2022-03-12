@@ -4,25 +4,25 @@ Developers, remember to insert all three exports; these are required. Your comma
 */
 
 exports.run = async (client, message, args, level) => {
-  
+    message.reply('Hello there!');
 };
 
 exports.conf = {
-  enabled: true,
-  guildOnly: false,
-  aliases: [],
-  permLevel: "User"
+    enabled: true,
+    guildOnly: false,
+    aliases: [],
+    permLevel: 'User',
 };
 
 exports.help = {
-  name: "",
-  category: "",
-  description: "",
-  usage: ""
+    name: '',
+    category: '',
+    description: '',
+    usage: '',
 };
 
 // Basic message auto-deletion
-if (!args[0]) {
-  message.delete();
-  return (await message.reply("text")).delete(5000).catch(() => { });
-}
+// if (!args[0]) {
+//     message.delete();
+//     return (await message.reply('text')).delete(5000).catch(() => {});
+// }
