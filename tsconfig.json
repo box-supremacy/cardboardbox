@@ -1,0 +1,21 @@
+{
+    "include": ["src/**/*"],
+    "exclude": ["node_modules"],
+    "compilerOptions": {
+        "target": "esnext",
+        "module": "esnext",
+        "rootDir": "./src",
+        "outDir": "./dist",
+        // "strict": true,
+        "importHelpers": true,
+        "esModuleInterop": true,
+        "experimentalDecorators": true,
+        "noImplicitAny": false,
+        "moduleResolution": "node",
+        "skipLibCheck": true,
+        "sourceMap": true
+    },
+    "typeAcquisition": {
+        "enable": true
+    }
+}
