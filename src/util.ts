@@ -137,11 +137,3 @@ export async function arrayExists(array, item) {
 
     return false;
 }
-
-export async function checkUpdates() {
-    console.log('Checking for updates...');
-    exec('./autopull.sh', function (err, data) {
-        console.log(data);
-    });
-    setTimeout(checkUpdates, 60 * 1000);
-}
