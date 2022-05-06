@@ -1,5 +1,5 @@
 const { MessageEmbed } = require('discord.js');
-const got = require('got');
+const got = import('got');
 const fetch = require('node-fetch');
 
 module.exports = (client) => {
