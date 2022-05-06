@@ -1,0 +1,7 @@
+out_dir = 'dist'
+
+cjs = false
+minify = false
+
+[bot]
+modules = 'src/**/*.ts'
