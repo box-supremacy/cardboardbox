@@ -1,54 +1,95 @@
-import { SlashCommandBuilder } from '@discordjs/builders';
+import { SlashCommandBuilder, SlashCommandSubcommandBuilder } from '@discordjs/builders'
+import fs from 'fs'
+import path from 'path'
 
 export default {
-    data: new SlashCommandBuilder().setName('help').setDescription('Get basic info of the bot.'),
+    data: new SlashCommandBuilder()
+        .setName('help')
+        .setDescription('Get a list of all bot commands.')
+        .addStringOption((opt) => opt.setName('command').setDescription('Command to view info for. Optional.').setRequired(false))
+        .addStringOption((opt) => opt.setName('subcommand').setDescription('Subcommand of the command. Optional.').setRequired(false)),
     async execute(interaction) {
-        const { client, member } = interaction;
-        const { user } = client;
-        const { id, username, discriminator } = user;
+        const embed = {
+            title: 'Commands',
+            description: '',
+            fields: [],
+        }
 
-        const helpEmbed = {
-            description: `${username}#${discriminator}`,
-            thumbnail: { url: user.displayAvatarURL() },
-            fields: [
-                {
-                    name: 'Bot ID',
-                    value: id,
-                    inline: true,
-                },
-                {
-                    name: 'Bot Name',
-                    value: username,
-                    inline: true,
-                },
-                {
-                    name: 'Bot Discriminator',
-                    value: discriminator,
-                    inline: true,
-                },
-                {
-                    name: 'Library',
-                    value: 'Discord.js',
-                    inline: true,
-                },
-                {
-                    name: 'Library Version',
-                    value: '13.3.1',
-                    inline: true,
-                },
-                {
-                    name: 'Language',
-                    value: 'JavaScript',
-                    inline: true,
-                },
-                {
-                    name: 'Path',
-                    value: 'commands/Info/help.js',
-                    inline: true,
-                },
-            ],
-        };
+        const command = interaction.options.get('command') || false
+        const subcommand = interaction.options.get('subcommand') || false
 
-        await interaction.reply({ embeds: [helpEmbed] });
+        if (subcommand && command) {
+            let subcmd = interaction.client.commands.get(command.value).data.options || false
+            subcmd = subcmd.filter(obj => obj.name == subcommand.value)
+            subcmd = subcmd[0]
+
+            if (!subcmd) return interaction.reply(`**/${command.value}** has no subcommand \`${subcommand.value}\`.`)
+
+            embed.title = `/${command.value} ${subcmd.name}`
+            embed.description = subcmd.description
+            if (subcmd.options.length > 0) {
+                const subcmdOpts = subcmd.options.map((opt) => `**${opt.name}**${opt.required ? ` *(required)*` : ''} — ${opt.description}`).join('\n')
+
+                embed.fields = [
+                    {
+                        name: 'Fields',
+                        value: subcmdOpts,
+                        inline: true,
+                    },
+                ]
+            }
+
+            return interaction.reply({ embeds: [embed] })
+        }
+
+        if (command) {
+            let cmd = interaction.client.commands.get(command.value) || false
+            cmd = cmd.data
+
+            if (!cmd) return interaction.reply(`Command **/${command.value}** not found.`)
+
+            embed.title = `/${cmd.name}`
+            embed.description = cmd.description
+            if (cmd.options.length > 0) {
+                const cmdOpts = cmd.options.map((opt) => `**${opt.name}**${opt.required ? ` *(required)*` : ''} — ${opt.description}`).join('\n'),
+                    optTypes = cmd.options.map((opt) => ('required' in opt ? 'Fields' : 'Subcommands'))
+
+                embed.fields = [
+                    {
+                        name: optTypes.indexOf('Subcommands') > -1 ? 'Subcommands' : 'Fields',
+                        value: cmdOpts,
+                        inline: true,
+                    },
+                ]
+            }
+
+            return interaction.reply({ embeds: [embed] })
+        }
+
+        const commandFolders = fs
+            .readdirSync('./cmds')
+            .filter((file) => fs.statSync(path.join('./cmds', file)).isDirectory())
+            .filter((file) => !file.startsWith('_'))
+        commandFolders.forEach((folder) => {
+            embed.fields.push({
+                name: folder,
+                value: '',
+                inline: true,
+            })
+        })
+
+        // load commands
+        for (const folder of commandFolders) {
+            const commandFiles = fs
+                .readdirSync(`./cmds/${folder}`)
+                .filter((file) => file.endsWith('.js'))
+                .filter((file) => !file.startsWith('_'))
+
+            commandFiles.forEach((file) => {
+                embed.fields[commandFolders.indexOf(folder)].value += `${file.slice(0, -3)}\n`
+            })
+        }
+
+        interaction.reply({ embeds: [embed] })
     },
-};
+}
