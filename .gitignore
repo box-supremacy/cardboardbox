@@ -7,24 +7,11 @@ logs
 credentials.json
 token.json
 
-# Runtime data
-pids
-*.pid
-*.seed
-*.pid.lock
-
 # Dependency directories
 node_modules/
-jspm_packages/
 
-# Typescript v1 declaration files
-typings/
-
-# Output of 'npm pack'
+# 'npm pack' tarball
 *.tgz
-
-# Yarn Integrity file
-.yarn-integrity
 
 # .DS_Store and other hidden files
 .DS_Store
