@@ -13,7 +13,8 @@
         "noImplicitAny": false,
         "moduleResolution": "node",
         "skipLibCheck": true,
-        "sourceMap": true
+        "sourceMap": true,
+        "resolveJsonModule": true
     },
     "typeAcquisition": {
         "enable": true
