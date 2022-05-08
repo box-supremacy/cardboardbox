@@ -28,10 +28,12 @@
         "typescript": "^4.6.4"
     },
     "scripts": {
-        "setup": "pnpm i && node dist/setup.js",
         "clean": "rimraf dist/",
         "copy-files": "copyfiles -u 1 src/**/* src/.env src/**/*.sh dist/",
+        "setup": "pnpm run build && node dist/setup.js",
+        "setup-nobuild": "node dist/setup.js",
         "build": "pnpm run clean && ./tateru && pnpm run copy-files",
-        "start": "cd dist && node dist/deploy.js && nodemon --watch dist index.js"
+        "start": "cd dist && node deploy.js && nodemon --watch dist index.js",
+        "start-nocmd": "cd dist && nodemon --watch dist index.js"
     }
 }
