@@ -7,16 +7,6 @@ export default {
         const command = interaction.client.commands.get(interaction.commandName);
 
         if (interaction.isCommand()) {
-            if (
-                command.requires &&
-                !(await fetchPermission(interaction.member.id, interaction.guild.id, command.requires, interaction.client))
-            ) {
-                return interaction.reply({
-                    content: 'You do not have the required permissions to use this command.',
-                    ephemeral: true,
-                });
-            }
-
             try {
                 await command.execute(interaction);
             } catch (e) {
