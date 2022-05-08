@@ -42,8 +42,6 @@ async function init() {
             .filter((file) => !file.startsWith('_'));
         for (const file of commandFiles) {
             const { default: command } = await import(`./cmds/${folder}/${file}`);
-            if (command.userPermissions || command.requires) command.defaultPermissions = false;
-            else command.defaultPermissions = true;
             client.commands.set(command.data.name, command);
         }
     }

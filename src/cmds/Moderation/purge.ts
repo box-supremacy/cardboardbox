@@ -5,7 +5,6 @@ export default {
         .setName('purge')
         .setDescription('Clear a number of messages in a channel.')
         .addIntegerOption((option) => option.setName('count').setDescription('The number of messages to delete.').setRequired(true)),
-    requires: 'mod',
     async execute(interaction) {
         await interaction.deferReply();
         const count = interaction.options.get('count').value;

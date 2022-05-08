@@ -28,7 +28,7 @@ export default {
                 .setName('list')
                 .setDescription('List the roles to grant to a user when they complete the membership screening.')
         ),
-    requires: 'mod',
+
     async execute(interaction) {
         switch (interaction.options.getSubcommand()) {
             case 'add':
