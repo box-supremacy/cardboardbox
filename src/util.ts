@@ -58,7 +58,7 @@ export async function doRestart(message, oldChannelId) {
     message.client.user.setStatus('dnd')
 
     writeFile(
-        './rebootinfo',
+        '../rebootinfo',
         `${Date.now()}\n${oldChannelId.toString()}\nthiscomesfromarestartsoremovethemessageidcontainedaboveinthecurrentchannel`,
         (err?: any, result?: any) => {
             if (err) console.log('error', err)
@@ -69,14 +69,7 @@ export async function doRestart(message, oldChannelId) {
     await message.editReply({ content: `Successfully shut down by ${message.user}. Restarting...` })
     message.client.user.setStatus('invisible')
 
-    exec(`yarn restart`, (err, stdout, stderr) => {
-        console.log(stdout)
-        console.log(stderr)
-        if (err) {
-            console.log(err)
-            return message.channel.send('Something went wrong. Check the logs for details.')
-        }
-    })
+    process.exit(1)
 }
 
 /**
