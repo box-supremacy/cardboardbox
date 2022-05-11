@@ -24,6 +24,7 @@
     "devDependencies": {
         "copyfiles": "^2.4.1",
         "nodemon": "^2.0.16",
+        "pm2": "^5.2.0",
         "rimraf": "^3.0.2",
         "typescript": "^4.6.4"
     },
@@ -33,7 +34,7 @@
         "setup": "pnpm run build && node dist/setup.js",
         "setup-nobuild": "node dist/setup.js",
         "build": "pnpm run clean && ./tateru && pnpm run copy-files",
-        "start": "cd dist && node deploy.js && nodemon --watch dist index.js",
-        "start-nocmd": "cd dist && nodemon --watch dist index.js"
+        "start": "cd dist && node deploy.js && cd .. && pm2 start ecosystem.config.cjs",
+        "dev": "cd dist && node deploy.js && nodemon --watch dist index.js"
     }
 }
