@@ -23,8 +23,8 @@ export default {
     },
 }
 async function checkReboot(client) {
-    if (!fs.existsSync('./rebootinfo')) return
-    let data: any = fs.readFileSync('./rebootinfo')
+    if (!fs.existsSync('../rebootinfo')) return
+    let data: any = fs.readFileSync('../rebootinfo')
     data = data.toString().split('\n')
 
     while (data.length > 2) {
@@ -36,5 +36,5 @@ async function checkReboot(client) {
     const channel = await client.channels.fetch(rebootChannelId)
     await channel.send(`Rebooted in \`${f.format(Date.now() - rebootTime)}\`.`)
 
-    fs.unlinkSync('./rebootinfo')
+    fs.unlinkSync('../rebootinfo')
 }
