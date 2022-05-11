@@ -1,7 +1,7 @@
 {
-    "watch": ["../src"],
+    "watch": ["./src"],
     "ext": "js,ts,json",
     "events": {
-        "restart": "pnpm run restart"
+        "restart": "pnpm run build && pnpm run start"
     }
 }
