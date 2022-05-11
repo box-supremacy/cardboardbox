@@ -6,7 +6,7 @@ export default {
     async execute(interaction) {
         const { client, member } = interaction
         const { user } = client
-        const { id, username, discriminator } = user
+        const { id, username, discriminator } = user;
 
         const helpEmbed = {
             description: `${username}#${discriminator}`,
@@ -45,6 +45,6 @@ export default {
             ],
         }
 
-        await interaction.reply({ embeds: [helpEmbed] })
+        await interaction.editReply({ embeds: [helpEmbed] })
     },
 }

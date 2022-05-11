@@ -7,6 +7,7 @@ export default {
     data: new SlashCommandBuilder().setName('restart').setDescription('Restart the bot.'),
     userPermissions: ['ADMINISTRATOR'],
     async execute(interaction) {
+        if(interaction.member.id !== OWNERID) return interaction.editReply('You aren\'t allowed to restart me. Nice try, though.');
         const confirm = new MessageActionRow().addComponents(
             new MessageButton().setCustomId('confirmRestart').setLabel('Confirm').setStyle('DANGER'),
             new MessageButton().setCustomId('cancelRestart').setLabel('Cancel').setStyle('SECONDARY')
@@ -14,7 +15,7 @@ export default {
         try {
             interaction.client.user.setStatus('idle');
 
-            await interaction.reply({
+            await interaction.editReply({
                 content: '**Are you sure you want to restart me?** Click the button below to proceed.',
                 components: [confirm],
             });

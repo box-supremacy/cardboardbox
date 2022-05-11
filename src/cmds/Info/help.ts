@@ -18,12 +18,14 @@ export default {
         const command = interaction.options.get('command') || false
         const subcommand = interaction.options.get('subcommand') || false
 
+        if (interaction.client.commands.get(command.value).data.secret) return interaction.editReply(`Command **/${command.value}** not found.`)
+
         if (subcommand && command) {
             let subcmd = interaction.client.commands.get(command.value).data.options || false
-            subcmd = subcmd.filter(obj => obj.name == subcommand.value)
+            subcmd = subcmd.filter((obj) => obj.name == subcommand.value)
             subcmd = subcmd[0]
 
-            if (!subcmd) return interaction.reply(`**/${command.value}** has no subcommand \`${subcommand.value}\`.`)
+            if (!subcmd) return interaction.editReply(`**/${command.value}** has no subcommand \`${subcommand.value}\`.`)
 
             embed.title = `/${command.value} ${subcmd.name}`
             embed.description = subcmd.description
@@ -39,14 +41,14 @@ export default {
                 ]
             }
 
-            return interaction.reply({ embeds: [embed] })
+            return interaction.editReply({ embeds: [embed] })
         }
 
         if (command) {
             let cmd = interaction.client.commands.get(command.value) || false
             cmd = cmd.data
 
-            if (!cmd) return interaction.reply(`Command **/${command.value}** not found.`)
+            if (!cmd) return interaction.editReply(`Command **/${command.value}** not found.`)
 
             embed.title = `/${cmd.name}`
             embed.description = cmd.description
@@ -63,13 +65,14 @@ export default {
                 ]
             }
 
-            return interaction.reply({ embeds: [embed] })
+            return interaction.editReply({ embeds: [embed] })
         }
 
         const commandFolders = fs
             .readdirSync('./cmds')
             .filter((file) => fs.statSync(path.join('./cmds', file)).isDirectory())
             .filter((file) => !file.startsWith('_'))
+            .filter((file) => !file.startsWith('Secret'))
         commandFolders.forEach((folder) => {
             embed.fields.push({
                 name: folder,
@@ -90,6 +93,6 @@ export default {
             })
         }
 
-        interaction.reply({ embeds: [embed] })
+        interaction.editReply({ embeds: [embed] })
     },
 }

@@ -3,6 +3,7 @@ import { fetchGuild, fetchPermission } from '../db/Mongo.js';
 export default {
     name: 'interactionCreate',
     async execute(interaction) {
+        await interaction.deferReply();
         await fetchGuild(interaction.guild.id);
         const command = interaction.client.commands.get(interaction.commandName);
 

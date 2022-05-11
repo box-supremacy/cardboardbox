@@ -34,7 +34,7 @@ export default {
             case 'add':
                 var didItWork = await db.addScreeningRole(interaction.options.get('role').value, interaction.guild.id);
                 console.log(didItWork);
-                await interaction.reply(
+                await interaction.editReply(
                     didItWork
                         ? `Added **<@&${interaction.options.get('role').value}>** to the screening completion roles.`
                         : 'That role already exists in the screening roles list!'
@@ -42,7 +42,7 @@ export default {
                 break;
             case 'remove':
                 var didItWork = await db.deleteScreeningRole(interaction.options.get('role').value, interaction.guild.id);
-                await interaction.reply(
+                await interaction.editReply(
                     didItWork
                         ? `Removed **<@&${interaction.options.get('role').value}>** from the screening completion roles.`
                         : "That role doesn't exist in the screening roles list!"
@@ -52,13 +52,13 @@ export default {
                 const roles = await db.fetchScreeningRoles(interaction.guild.id);
                 if (roles.length > 0) {
                     const rolesList = roles.map((role) => `<@&${role}>`).join(', ');
-                    await interaction.reply(
+                    await interaction.editReply(
                         `The following ${
                             roles.length > 1 ? 'roles' : 'role'
                         } will be granted new members complete the membership screening: ${rolesList}`
                     );
                 } else {
-                    await interaction.reply(
+                    await interaction.editReply(
                         "From the looks of it, I won't be giving new users any roles when they complete the screening."
                     );
                 }

@@ -9,7 +9,7 @@ export default {
         .setDescription('Runs a command through standard JavaScript.')
         .addStringOption((option) => option.setName('code').setDescription('Code to evaluate.').setRequired(true)),
     async execute(interaction) {
-        if(interaction.user.id !== process.env.OWNERID) return interaction.reply('Nice try.')
+        if(interaction.user.id !== process.env.OWNERID) return interaction.editReply('Nice try.')
 
         try {
             const code = interaction.options.get('code').value
@@ -22,19 +22,19 @@ export default {
             if (evaled.length > 2000) {
                 let link: any = false
                 link = await funcs.bin(evaled)
-                if (!link) return interaction.reply("Output was longer than 2000 characters, but `hst.sh` didn't give me anything.")
+                if (!link) return interaction.editReply("Output was longer than 2000 characters, but `hst.sh` didn't give me anything.")
 
                 const row = new MessageActionRow().addComponents(new MessageButton().setStyle('LINK').setURL(link).setLabel('Output (hst.sh)'))
 
-                return interaction.reply({
+                return interaction.editReply({
                     content: 'Output was longer than 2000 characters.',
                     components: [row],
                 })
             }
 
-            interaction.reply(`\`\`\`js\n${evaled}\n\`\`\``, { code: 'xl' })
+            interaction.editReply(`\`\`\`js\n${evaled}\n\`\`\``, { code: 'xl' })
         } catch (error) {
-            interaction.reply(`\`\`\`js\n${error}\n\`\`\``, { code: 'xl' })
+            interaction.editReply(`\`\`\`js\n${error}\n\`\`\``, { code: 'xl' })
         }
     },
 };
