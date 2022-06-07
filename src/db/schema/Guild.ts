@@ -6,13 +6,28 @@ export default mongoose.model(
     new Schema({
         id: { type: String },
         registeredAt: { type: Number, default: Date.now() },
-        roles: {
-            mod: [String],
-            admin: [String],
-            owner: [String],
-        },
         addons: {
             screeningRoles: [String],
+            logging: {
+                enabled: { type: Boolean, default: false },
+                channel: { type: String, default: null },
+            },
+            greeter: {
+                enabled: { type: Boolean, default: false },
+                channel: { type: String, default: '' },
+                joinMessages: {
+                    type: [String],
+                    default: ['{mention} joined the server.'],
+                },
+                leaveMessages: {
+                    type: [String],
+                    default: ['{mention} left the server.'],
+                },
+                dmGreet: {
+                    enabled: { type: Boolean, default: false },
+                    message: { type: String, default: 'Welcome to the server, {user}!' },
+                },
+            },
         },
     })
 );
