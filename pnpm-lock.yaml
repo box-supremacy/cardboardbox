@@ -12,6 +12,7 @@ specifiers:
   child_process: ^1.0.2
   copyfiles: ^2.4.1
   discord-api-types: ^0.32.1
+  discord-bitfield-calculator: ^1.0.0
   discord.js: ^13.6.0
   dotenv: ^10.0.0
   inquirer: ^8.2.4
@@ -32,6 +33,7 @@ dependencies:
   '@types/inquirer': 8.2.1
   child_process: 1.0.2
   discord-api-types: 0.32.1
+  discord-bitfield-calculator: 1.0.0
   discord.js: 13.6.0
   dotenv: 10.0.0
   inquirer: 8.2.4
@@ -768,6 +770,10 @@ packages:
 
   /discord-api-types/0.32.1:
     resolution: {integrity: sha512-/ewl0CPYT5xjOC+SJ7wADJKjtpZfiiUaYXOP/Ns54lnBcv4Xqa4iKSqRF/w1fjiUvWTYN9W8UuOiyCHtmu5fJw==}
+    dev: false
+
+  /discord-bitfield-calculator/1.0.0:
+    resolution: {integrity: sha512-I1istpckG90n/kTId2OGFLz4Bm1uaJUXx6B7CsazMo3MvoQHOsLk0OWzIRlQnOyGynr8A/q9b+6Eo+Ep0UUaCA==}
     dev: false
 
   /discord.js/13.6.0:
