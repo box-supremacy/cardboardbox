@@ -29,5 +29,17 @@ export default mongoose.model(
                 },
             },
         },
+        infractions: [
+            {
+                id: { type: String, default: '' },
+                issued: { type: Number, default: Date.now() },
+                expires: { type: Number, default: Date.now() },
+                guild: { type: String, default: '' },
+                victim: { type: String, default: '' },
+                moderator: { type: String, default: '' },
+                reason: { type: String, default: '' },
+                type: { type: String, default: '' },
+            },
+        ],
     })
 );

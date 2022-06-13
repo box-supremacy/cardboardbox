@@ -14,7 +14,8 @@
         "mongoose": "^6.3.2",
         "ow": "0.27.0",
         "petitio": "^1.4.0",
-        "profane-words": "^1.4.0"
+        "profane-words": "^1.4.0",
+        "ytdl-core": "^4.11.0"
     },
     "resolutions": {
         "ow": "0.27.0"
