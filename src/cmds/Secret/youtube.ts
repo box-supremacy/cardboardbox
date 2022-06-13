@@ -18,9 +18,7 @@ export default {
         file.on('finish', async () => {
             file.close();
             const attachment = new MessageAttachment(`./${message.author.id}.mp3`);
-            await message.channel.send(`${message.author.username}'s video has been downloaded!`, {
-                files: ['attachment'],
-            });
+            await message.channel.send({ content: `${message.author.username}'s video has been downloaded!`, files: [{ attachment: attachment }] });
             stream.destroy();
             unlink(`${message.author.id}.mp3`, () => {});
         });
