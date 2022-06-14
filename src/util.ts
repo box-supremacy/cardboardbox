@@ -1,9 +1,13 @@
 // This is the universal functions file.
 // Use this to store functions you will be using across a bunch of commands.
 // Will be easier for you to manage.
-import { exec } from 'child_process'
-import { writeFile, readdirSync, statSync } from 'fs'
-import req from 'petitio'
+import { exec } from 'child_process';
+import { writeFile, readdirSync, statSync } from 'fs';
+import req from 'petitio';
+
+import multer from 'multer';
+import multerS3 from 'multer-s3';
+import aws from 'aws-sdk';
 
 /**
  * Sends a message using the bot's default embed.
@@ -18,9 +22,9 @@ export function msgAlert(message, title, desc) {
         title: title,
         description: desc,
         timestamp: new Date().toLocaleString(),
-    }
+    };
 
-    return message.channel.send(embed).then((msg) => msg.delete(5000))
+    return message.channel.send(embed).then((msg) => msg.delete(5000));
 }
 
 /**
@@ -31,7 +35,7 @@ export function msgAlert(message, title, desc) {
  * @example randArr([1, 2, 3, 4, 5, 6, 7, 8]); // Returns (example): 5
  */
 export function randArr(arr) {
-    return arr[Math.floor(Math.random() * arr.length)]
+    return arr[Math.floor(Math.random() * arr.length)];
 }
 
 /**
@@ -43,9 +47,9 @@ export function randArr(arr) {
  * @example randomInt(1, 5); // Returns (example): 4
  */
 export function randomInt(min, max) {
-    min = Math.ceil(min)
-    max = Math.floor(max)
-    return Math.floor(Math.random() * (max - min + 1)) + min
+    min = Math.ceil(min);
+    max = Math.floor(max);
+    return Math.floor(Math.random() * (max - min + 1)) + min;
 }
 
 /**
@@ -54,22 +58,22 @@ export function randomInt(min, max) {
  * @param {String} oldChannelId The ID of the channel the command was used in.
  */
 export async function doRestart(message, oldChannelId) {
-    await message.update({ content: `**Restart confirmed by ${message.user}.** Restarting...`, components: [] })
-    message.client.user.setStatus('dnd')
+    await message.update({ content: `**Restart confirmed by ${message.user}.** Restarting...`, components: [] });
+    message.client.user.setStatus('dnd');
 
     writeFile(
         '../rebootinfo',
         `${Date.now()}\n${oldChannelId.toString()}\nthiscomesfromarestartsoremovethemessageidcontainedaboveinthecurrentchannel`,
         (err?: any, result?: any) => {
-            if (err) console.log('error', err)
-            if (result) console.log(result)
+            if (err) console.log('error', err);
+            if (result) console.log(result);
         }
-    )
+    );
 
-    await message.editReply({ content: `Successfully shut down by ${message.user}. Restarting...` })
-    message.client.user.setStatus('invisible')
+    await message.editReply({ content: `Successfully shut down by ${message.user}. Restarting...` });
+    message.client.user.setStatus('invisible');
 
-    process.exit(1)
+    process.exit(1);
 }
 
 /**
@@ -80,32 +84,32 @@ export async function doRestart(message, oldChannelId) {
  * @returns {String} The Hastebin URL.
  */
 export async function bin(data, ext = 'js') {
-    data = JSON.stringify(data, null, 4)
-    const res = await req('https://hst.sh/documents', 'POST').body({ content: data }).json()
+    data = JSON.stringify(data, null, 4);
+    const res = await req('https://hst.sh/documents', 'POST').body({ content: data }).json();
 
-    return `https://hst.sh/${res.key}.${ext}`
+    return `https://hst.sh/${res.key}.${ext}`;
 }
 
 export async function arrayExists(array, item) {
-    if (array.indexOf(item) > -1) return true
+    if (array.indexOf(item) > -1) return true;
 
-    return false
+    return false;
 }
 
 export const walkForFiles = (dir, target?) => {
-    let results = []
-    const list = readdirSync(dir)
+    let results = [];
+    const list = readdirSync(dir);
     list.forEach((file) => {
-        file = dir + '/' + file
-        const stat = statSync(file)
-        if (target && !file.includes(target)) return
+        file = dir + '/' + file;
+        const stat = statSync(file);
+        if (target && !file.includes(target)) return;
         if (stat && stat.isDirectory()) {
             /* Recurse into a subdirectory */
-            results = results.concat(walkForFiles(file, target))
+            results = results.concat(walkForFiles(file, target));
         } else {
             /* Is a file */
-            results.push(file)
+            results.push(file);
         }
-    })
-    return results
-}
+    });
+    return results;
+};
