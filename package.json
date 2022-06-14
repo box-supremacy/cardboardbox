@@ -24,6 +24,8 @@
     "type": "module",
     "format": "esm",
     "devDependencies": {
+        "@types/node": "^17.0.42",
+        "aws-sdk": "^2.1153.0",
         "copyfiles": "^2.4.1",
         "nodemon": "^2.0.16",
         "pm2": "^5.2.0",
