@@ -43,7 +43,10 @@ export default {
         let title = info.videoDetails.title;
         title = title.replaceAll('/', ' and ');
         title = title.replaceAll(' ', '_');
-        title = title.replaceAll(/\?|\!|\*|\<|\>|\\|\:|\||\.|\,|\s\(.*\)|\s\(.*\)\s|\(.*\)\s|\(.*\)/g, '');
+        title = title.replaceAll(
+            /\?|\!|\*|\<|\>|\\|\:|\||\.|\,|\s\(.*\)|\s\(.*\)\s|\(.*\)\s|\(.*\)|\s\[.*\]|\s\[.*\]\s|\[.*\]\s|\[.*\]|\s\{.*\}|\s\{.*\}\s|\{.*\}\s|\{.*\}/g,
+            ''
+        );
 
         let file = fs.createWriteStream(`${title}.mp3`);
         stream.pipe(file);
