@@ -11,7 +11,7 @@
         "discord.js": "^13.6.0",
         "dotenv": "^10.0.0",
         "inquirer": "^8.2.4",
-        "mongoose": "^6.3.2",
+        "mongoose": "^6.11.3",
         "ow": "0.27.0",
         "petitio": "^1.4.0",
         "profane-words": "^1.4.0",
